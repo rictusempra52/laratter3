@@ -13,7 +13,6 @@ class TweetController extends Controller
     public function index()
     {
         // ツイート一覧を表示
-        
         $tweets = Tweet::with('user')->latest()->get();
         return view('tweets.index');
     }
