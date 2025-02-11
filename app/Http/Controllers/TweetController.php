@@ -12,7 +12,10 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+        // ツイート一覧を表示
+        
+        $tweets = Tweet::with('user')->latest()->get();
+        return view('tweets.index');
     }
 
     /**
@@ -20,7 +23,8 @@ class TweetController extends Controller
      */
     public function create()
     {
-        //
+        // ツイート作成画面を表示
+        return view('tweets.create');
     }
 
     /**
