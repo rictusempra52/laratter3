@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * ツイート(1対多の関係)
+     */
+    public function tweet()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }
