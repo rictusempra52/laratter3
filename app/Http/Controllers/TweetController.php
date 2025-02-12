@@ -14,7 +14,7 @@ class TweetController extends Controller
     {
         // ツイート一覧を表示
         $tweets = Tweet::with('user')->latest()->get();
-        return view('tweets.index');
+        return view('tweets.index', compact('tweets'));
     }
 
     /**
@@ -31,7 +31,14 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // バリデーション
+        $request->validate([
+            'tweet' => 'required|max:255',
+        ]);
+        // ツイートを保存
+        $request->user()->tweets()->create($request->only('tweet'));
+        // ツイート一覧にリダイレクト 
+        return redirect()->route('tweets.index');
     }
 
     /**

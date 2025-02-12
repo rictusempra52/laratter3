@@ -49,7 +49,7 @@ class User extends Authenticatable
     /**
      * ツイート(1対多の関係)
      */
-    public function tweet()
+    public function tweets()
     {
         return $this->hasMany(Tweet::class);
     }
