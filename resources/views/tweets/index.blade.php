@@ -52,6 +52,31 @@
                                         </form>
                                     @endif
                                 @endauth
+                                <!-- リツイートボタン -->
+                                @auth
+                                    @if($tweet->retweetedBy(auth()->user()))
+                                        <form action="{{ route('tweets.unretweet', $tweet) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="flex items-center space-x-1 text-green-500 hover:text-green-700 transform transition-all duration-200 hover:scale-110 active:scale-95">
+                                                <svg class="w-5 h-5 transition-transform duration-200 hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"/>
+                                                </svg>
+                                                <span>{{ $tweet->retweets_count }}</span>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('tweets.retweet', $tweet) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="flex items-center space-x-1 text-gray-500 hover:text-green-500 transform transition-all duration-200 hover:scale-110 active:scale-95">
+                                                <svg class="w-5 h-5 transition-transform duration-200 hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"/>
+                                                </svg>
+                                                <span>{{ $tweet->retweets_count }}</span>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endauth
                                 <!-- 詳細ページへのリンク -->
                                 <a href="{{ route('tweets.show', $tweet) }}"
                                     class="text-blue-500 hover:text-blue-700">詳細を見る</a>

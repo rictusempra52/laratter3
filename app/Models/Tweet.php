@@ -30,6 +30,14 @@ class Tweet extends Model
     }
 
     /**
+     * ツイートのリツイートを取得
+     */
+    public function retweets(): HasMany
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
+    /**
      * 特定のユーザーがいいねしているかチェック
      */
     public function likedBy(?User $user): bool
@@ -44,10 +52,32 @@ class Tweet extends Model
     }
 
     /**
+     * 特定のユーザーがリツイートしているかチェック
+     */
+    public function retweetedBy(?User $user): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+
+        return $this->retweets()
+            ->where('user_id', $user->id)
+            ->exists();
+    }
+
+    /**
      * いいねの数を取得
      */
     public function getLikesCountAttribute(): int
     {
         return $this->likes->count();
+    }
+
+    /**
+     * リツイートの数を取得
+     */
+    public function getRetweetsCountAttribute(): int
+    {
+        return $this->retweets->count();
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\RetweetController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,10 @@ Route::middleware('auth')->group(function () {
     // いいね機能のルート
     Route::post('/tweets/{tweet}/like', [LikeController::class, 'store'])->name('tweets.like');
     Route::delete('/tweets/{tweet}/like', [LikeController::class, 'destroy'])->name('tweets.unlike');
+
+    // リツイート機能のルート
+    Route::post('/tweets/{tweet}/retweet', [RetweetController::class, 'store'])->name('tweets.retweet');
+    Route::delete('/tweets/{tweet}/retweet', [RetweetController::class, 'destroy'])->name('tweets.unretweet');
 });
 
 require __DIR__ . '/auth.php';
