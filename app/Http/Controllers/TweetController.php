@@ -55,7 +55,8 @@ class TweetController extends Controller
      */
     public function edit(Tweet $tweet)
     {
-        //
+        // ツイート編集画面を表示
+        return view('tweets.edit', compact('tweet'));
     }
 
     /**
@@ -63,7 +64,17 @@ class TweetController extends Controller
      */
     public function update(Request $request, Tweet $tweet)
     {
-        //
+        // ツイートを更新
+        /**
+         * ツイートを更新し、ツイート一覧ページにリダイレクトします。
+         *
+         * @param \Illuminate\Http\Request $request HTTPリクエストオブジェクト
+         * @param \App\Models\Tweet $tweet 更新対象のツイートモデル
+         * @return \Illuminate\Http\RedirectResponse ツイート一覧ページへのリダイレクトレスポンス
+         */
+        $tweet->update($request->only('tweet'));
+        // ツイート一覧にリダイレクト
+        return redirect()->route('tweets.index');
     }
 
     /**
@@ -71,6 +82,10 @@ class TweetController extends Controller
      */
     public function destroy(Tweet $tweet)
     {
-        //
+        // ツイートを削除
+        $tweet->delete();
+        // ツイート一覧にリダイレクト
+        return redirect()->route('tweets.index');
+        
     }
 }
