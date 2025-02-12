@@ -1,3 +1,5 @@
-<div>
-    <!-- He who is contented is rich. - Laozi -->
-</div>
+{{-- ツイート編集画面 --}}
+
+dd ($tweet); // ツイート情報を表示
+
+{{-- ツイート編集フォーム --}}
